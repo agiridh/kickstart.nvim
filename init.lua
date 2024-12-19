@@ -323,7 +323,6 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
       vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
-      vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = 'Search [G]it [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
@@ -354,6 +353,19 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      vim.keymap.set('n', '<leader>gf', builtin.git_files, { desc = 'Search [G]it [F]iles' })
+
+      -- Search in the current project where all instances of the word under the cursor appears
+      vim.keymap.set('n', '<leader>pws', function()
+        local word = vim.fn.expand '<cword>'
+        builtin.grep_string { search = word }
+      end, { desc = '[P]roject [W]ord [S]earch' })
+
+      vim.keymap.set('n', '<leader>pWs', function()
+        local word = vim.fn.expand '<cWORD>'
+        builtin.grep_string { search = word }
+      end, { desc = '[P]roject [W]ord [S]earch' })
     end,
   },
 
